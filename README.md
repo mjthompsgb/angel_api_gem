@@ -38,12 +38,47 @@ The "/angel_api" route can be whatever you would like.
 
 ### Usage
 
+##### Search
+
+Symbol in parameter must be one of :User, :Startup, :MarketTag, :LocationTag
+It is also best to sanitize the query you are passing in to encode any characters that will mess with a query string
+```ruby
+AngelApi::Startup.where(:Startup => query)
+```
+
+##### Startup Detail
+
+Pass in a startup ID and get back the details of that startup
+```ruby
+AngelApiGem::AngelApi::Api.new.startup_detail( STARTUP_ID )
+```
+
+##### Startup Roles
+
+Pass in a startup ID and get back all the roles in an object. Can get the following about a role:
+* .id
+* .role
+* .confirmed
+* .name
+* .type
+* .user_id
+* .bio
+* .followers
+* .angel_url
+* .image_url
+
+```ruby
+AngelApiGem::AngelApi::Startup.roles( STARTUP_ID )
+```
+
 ##### jQuery Autocomplete
 
+View input
 ```ruby
 <input class="input-xlarge" id="search" type="text" name="website" data-id=''>
 ```
 
+jQuery
 ```ruby
 $( "#search" ).autocomplete({
     source: function( request, response ) {
