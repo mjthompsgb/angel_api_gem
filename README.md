@@ -45,6 +45,7 @@ Symbol in parameter must be one of:
 * :User
 * :MarketTag 
 * :LocationTag
+
 It is also best to sanitize the query you are passing in to encode any characters that will mess with a query string
 ```ruby
 AngelApi::Startup.where(:Startup => query)
