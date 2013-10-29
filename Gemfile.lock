@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    angel_api_gem (0.0.1)
+    angel_api_gem (0.0.2)
       rails (~> 4.0.0)
 
 GEM
