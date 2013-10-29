@@ -36,6 +36,55 @@ mount AngelApiGem::Engine => "/angel_api"
 
 The "/angel_api" route can be whatever you would like.
 
+### Usage
+
+##### jQuery Autocomplete
+
+```ruby
+<input class="input-xlarge" id="search" type="text" name="website" data-id=''>
+```
+
+```ruby
+$( "#search" ).autocomplete({
+    source: function( request, response ) {
+      $.ajax({
+        url: "/angel_api/autocomplete",
+        dataType: "json",
+        data: {
+          query: encodeURIComponent(request.term)
+        },
+        success: function( data ) {
+          if (!data) {
+            stop_loading_spinner();
+            return [];
+          }
+          response( $.map( data, function( item ) {
+            return {
+              label: item.company_url || item.name,
+              value: item.company_url || item.name,
+              id: item.id
+            }
+          }));
+        }
+      });
+    },
+    minLength: 2,
+    select: function( event, ui ) {
+      log( ui.item ?
+        "Selected: " + ui.item.label :
+        "Nothing selected, input was " + this.value);
+      $('#angel_id').val(ui.item.id);
+      stop_loading_spinner();
+    },
+    open: function() {
+      $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+    },
+    close: function() {
+      $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+    }
+});
+```
+
 # Future
 
 I will be adding lots of features to this including login via AngelList. Check back often for updates.
